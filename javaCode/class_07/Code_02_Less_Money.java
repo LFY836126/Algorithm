@@ -6,15 +6,19 @@ import java.util.PriorityQueue;
 public class Code_02_Less_Money {
 
 	public static int lessMoney(int[] arr) {
+//		pQ:系统实现的一个堆
 		PriorityQueue<Integer> pQ = new PriorityQueue<>();
+//		所有的数进堆
 		for (int i = 0; i < arr.length; i++) {
 			pQ.add(arr[i]);
 		}
 		int sum = 0;
 		int cur = 0;
 		while (pQ.size() > 1) {
+			/*一次拿出两个数，将代价累加起来*/
 			cur = pQ.poll() + pQ.poll();
 			sum += cur;
+//			新生成的这个数加到堆里去
 			pQ.add(cur);
 		}
 		return sum;

@@ -5,7 +5,7 @@ public class Code_07_MinPath {
 	public static int minPath1(int[][] matrix) {
 		return process1(matrix, matrix.length - 1, matrix[0].length - 1);
 	}
-
+//	从(i , j)出发，到达右下角位置，最短路径和是多少(返回)
 	public static int process1(int[][] matrix, int i, int j) {
 		int res = matrix[i][j];
 		if (i == 0 && j == 0) {
@@ -55,7 +55,23 @@ public class Code_07_MinPath {
 		}
 		return result;
 	}
-
+	public static int walk(int [][]matrix, int i, int j){
+		if( i == matrix.length - 1 && j == matrix[0].length -1){
+//			递归跳出条件
+			return matrix[i][j];
+		}
+//		如果i来到了最后一行，那么到最右下角的位置距离就是：当前点，加上右一的点到右下角的距离
+		if(i == matrix.length - 1){
+			return matrix[i][j] + walk(matrix, i, j + 1);
+		}
+//		如果j来到了最后一列，那么到最右下角的位置距离就是：当前点，加上下一的点到右下角的距离
+		if(j == matrix.length - 1){
+			return matrix[i][j] + walk(matrix, i + 1, j);
+		}
+		int right = walk(matrix, i, j + 1);	/*right->右边位置到右下角的最短路径和*/
+		int down = walk(matrix, i + 1, j);/*down->下边位置到右下角的最短路径和*/
+		return matrix[i][j] + Math.min(right, down); /*选择是往下走小还是往右走小一点*/
+	}
 	public static void main(String[] args) {
 		int[][] m = { { 1, 3, 5, 9 }, { 8, 1, 3, 4 }, { 5, 0, 6, 1 }, { 8, 8, 4, 0 } };
 		System.out.println(minPath1(m));
@@ -64,5 +80,6 @@ public class Code_07_MinPath {
 		m = generateRandomMatrix(6, 7);
 		System.out.println(minPath1(m));
 		System.out.println(minPath2(m));
+
 	}
 }

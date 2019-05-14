@@ -45,11 +45,21 @@ public class Code_03_Print_All_Subsquences {
 	public static List<Character> copyList(List<Character> list){
 		return null;
 	}
-	
-
+//	res是上级扔给我的字符串
+	public static void printAllSub(char [] str, int i, String res){
+		if(i == str.length){
+			System.out.println(res);
+			return ;
+		}
+//		可以在下一步传进去""
+		printAllSub(str, i + 1, res);
+//		也可以把 res + 当前位的字母 传进去
+		printAllSub(str, i + 1, res + String.valueOf(str[i]));
+	}
 	public static void main(String[] args) {
 		String test = "abc";
-		printAllSubsquence(test);
+//		printAllSubsquence(test);
+		printAllSub(test.toCharArray(), 0, "");
 	}
 
 }

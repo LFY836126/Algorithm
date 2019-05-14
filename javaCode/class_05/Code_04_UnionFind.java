@@ -10,23 +10,24 @@ public class Code_04_UnionFind {
 	}
 
 	public static class UnionFindSet {
-		public HashMap<Node, Node> fatherMap;
-		public HashMap<Node, Integer> sizeMap;
+		public HashMap<Node, Node> fatherMap;	/*Key: child, value: father*/
+		public HashMap<Node, Integer> sizeMap;	/*某一个代表节点所在的集合一共有多少个节点*/
 
-		public UnionFindSet() {
+		public UnionFindSet(List<Node> nodes) {
+//			List<Node> nodes：初始化时候，让用户一次性的把所有样本给你
+			makeSets(nodes);
+		}
+		private void makeSets(List<Node> nodes) {
 			fatherMap = new HashMap<Node, Node>();
 			sizeMap = new HashMap<Node, Integer>();
-		}
-
-		public void makeSets(List<Node> nodes) {
-			fatherMap.clear();
-			sizeMap.clear();
 			for (Node node : nodes) {
+//				自己指向自己，每个节点代表节点都是自己，父节点也都是自己
 				fatherMap.put(node, node);
+//				size也就是1
 				sizeMap.put(node, 1);
 			}
 		}
-
+//		找到元素代表节点,并且变扁平
 		private Node findHead(Node node) {
 			Node father = fatherMap.get(node);
 			if (father != node) {

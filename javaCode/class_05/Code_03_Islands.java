@@ -6,6 +6,7 @@ public class Code_03_Islands {
 		if (m == null || m[0] == null) {
 			return 0;
 		}
+//		N，M是行和列
 		int N = m.length;
 		int M = m[0].length;
 		int res = 0;
@@ -21,10 +22,12 @@ public class Code_03_Islands {
 	}
 
 	public static void infect(int[][] m, int i, int j, int N, int M) {
+//		跳出条件，越界和当前结点不是1
 		if (i < 0 || i >= N || j < 0 || j >= M || m[i][j] != 1) {
 			return;
 		}
 		m[i][j] = 2;
+//		当前结点感染它的上下左右
 		infect(m, i + 1, j, N, M);
 		infect(m, i - 1, j, N, M);
 		infect(m, i, j + 1, N, M);
